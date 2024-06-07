@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../assets/css/form.css";
 import { Link, useNavigate } from "react-router-dom";
 import Validation from "../components/Validation";
@@ -23,7 +23,7 @@ const Register = () => {
     setErrors(errs);
     if (errs.name === "" && errs.email === "" && errs.password === "") {
       axios
-        .post("http://127.0.0.1:3000/bestcrm/register", values)
+        .post("http://localhost:3000/bestcrm/register", values)
         .then((res) => {
           if (res.data.success) {
             toast.success("Account Created Successfully", {

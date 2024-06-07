@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import "../assets/css/form.css";
 import { Link, useNavigate } from "react-router-dom";
 import Validation from "../components/Validation";
@@ -11,7 +11,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const { user, setUser } = useContext(UserContext);
+  const { User, setUser } = useContext(UserContext);
   const [errors, setErrors] = useState({});
   const [serverErrors, setserverErrors] = useState([]);
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Login = () => {
     setErrors(errs);
     if (errs.email === "" && errs.password === "") {
       axios
-        .post("http://127.0.0.1:3000/bestcrm/login", values)
+        .post("http://localhost:3000/bestcrm/login", values)
         .then((res) => {
           if (res.data.success) {
             toast.success("Login Successfully", {
