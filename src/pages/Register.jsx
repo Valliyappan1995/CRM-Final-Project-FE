@@ -23,7 +23,10 @@ const Register = () => {
     setErrors(errs);
     if (errs.name === "" && errs.email === "" && errs.password === "") {
       axios
-        .post("http://localhost:3000/bestcrm/register", values)
+        .post(
+          "https://crm-backend-final-4.onrender.com/bestcrm/register",
+          values
+        )
         .then((res) => {
           if (res.data.success) {
             toast.success("Account Created Successfully", {
