@@ -14,7 +14,6 @@ import Logout from "./components/Logout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 
-
 export const UserContext = createContext(null);
 
 const router = createBrowserRouter([
@@ -67,7 +66,7 @@ const App = () => {
   const [user, setUser] = useState();
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:3000/bestcrm/verify", {
+      .get("https://crm-backend-final-4.onrender.com/bestcrm/verify", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
