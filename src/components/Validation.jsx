@@ -2,7 +2,8 @@ export default function Validation(values) {
   let errors = {};
 
   const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,20}$/;
+  const password_pattern = ///^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,20}$/;
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d.*\d.*\d).{8,}$/;
 
   if (values?.name) {
     if (values.name === "") {
@@ -25,7 +26,8 @@ export default function Validation(values) {
   if (values.password === "") {
     errors.password = "Password Should Not Empty.";
   } else if (!password_pattern.test(values.password)) {
-    errors.password = "1 Small and Capital Char Number to {8}";
+    errors.password =
+      "Password must start with a capital letter, be 8+ chars, and include 3+ numbers.";
   } else {
     errors.password = "";
   }
