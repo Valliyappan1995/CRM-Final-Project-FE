@@ -27,7 +27,7 @@ const EditOffer = () => {
     e.preventDefault();
     axios
       .put(
-        "https://crm-backend-final-4.onrender.com/bestcrm/update-offer/" + id,
+        "https://crm-backend-final-5.onrender.com/bestcrm/update-offer/" + id,
         values,
         {
           headers: {
@@ -54,7 +54,7 @@ const EditOffer = () => {
   useEffect(() => {
     axios
       .get(
-        "https://crm-backend-final-4.onrender.com/bestcrm/displayoffers/" + id,
+        "https://crm-backend-final-5.onrender.com/bestcrm/displayoffers/" + id,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

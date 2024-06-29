@@ -28,7 +28,7 @@ const EditContact = () => {
     e.preventDefault();
     axios
       .put(
-        "https://crm-backend-final-4.onrender.com/bestcrm/update-contact/" + id,
+        "https://crm-backend-final-5.onrender.com/bestcrm/update-contact/" + id,
         values,
         {
           headers: {
@@ -55,7 +55,7 @@ const EditContact = () => {
   useEffect(() => {
     axios
       .get(
-        "https://crm-backend-final-4.onrender.com/bestcrm/displaycontacts/" +
+        "https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts/" +
           id,
         {
           headers: {

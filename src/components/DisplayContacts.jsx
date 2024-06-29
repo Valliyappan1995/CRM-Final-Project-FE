@@ -41,7 +41,7 @@ const DisplayContacts = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://crm-backend-final-4.onrender.com/bestcrm/displaycontacts/${id}`,
+            `https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -106,7 +106,7 @@ const DisplayContacts = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://crm-backend-final-4.onrender.com/bestcrm/displaycontacts", {
+      .get("https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
