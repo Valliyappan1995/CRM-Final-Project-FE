@@ -13,6 +13,9 @@ import EditContact from "./components/EditContact";
 import Logout from "./components/Logout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
+import DisplayOffers from "./components/Offers/DisplayOffers";
+import Offers from "./components/Offers/Offers";
+import EditOffer from "./components/Offers/EditOffer";
 
 export const UserContext = createContext(null);
 
@@ -49,6 +52,18 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/edit-contact/:id",
         element: <EditContact />,
+      },
+      {
+        path: "/dashboard/displayOffers",
+        element: <DisplayOffers />,
+      },
+      {
+        path: "/dashboard/offers",
+        element: <Offers />,
+      },
+      {
+        path: "dashboard/edit-offers/:id",
+        element: <EditOffer />,
       },
     ],
   },

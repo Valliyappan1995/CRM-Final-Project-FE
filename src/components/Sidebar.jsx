@@ -45,6 +45,22 @@ export const Sidebar = () => {
         className={`sidebar-item ${activeLink === 3 ? " active " : ""}`}
         onClick={() => setActiveLink(3)}
       >
+        <Link to="/displayOffers" className="sidebar-link">
+          <FaPowerOff className="icon" /> Display Offers
+        </Link>
+      </div>
+      <div
+        className={`sidebar-item ${activeLink === 4 ? " active " : ""}`}
+        onClick={() => setActiveLink(4)}
+      >
+        <Link to="/offers" className="sidebar-link">
+          <FaPowerOff className="icon" /> Offers
+        </Link>
+      </div>
+      <div
+        className={`sidebar-item ${activeLink === 5 ? " active " : ""}`}
+        onClick={() => setActiveLink(5)}
+      >
         <Link to="/logout" className="sidebar-link">
           <FaPowerOff className="icon" /> Exit
         </Link>

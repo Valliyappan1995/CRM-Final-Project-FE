@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link to="/login" className="navbar-link">
               Contact
             </Link>
-            <Link to="/register" className="navbar-link">
+            <Link to="/dashboard/contacts" className="navbar-link">
               {user.name}
             </Link>
             <Link to="/logout" className="navbar-link">
