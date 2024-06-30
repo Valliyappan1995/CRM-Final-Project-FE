@@ -8,7 +8,9 @@ import {
   FaPowerOff,
   FaAccusoft,
   FaPhone,
-} from "react-icons/fa6";
+  FaBoxOpen,
+  FaServicestack,
+} from "react-icons/fa";
 
 export const Sidebar = () => {
   const [activeLink, setActiveLink] = useState(1);
@@ -46,17 +48,23 @@ export const Sidebar = () => {
       </div>
       <div
         className={`sidebar-item ${activeLink === 3 ? " active " : ""}`}
-        onClick={() => setActiveLink(4)}
+        onClick={() => setActiveLink(3)}
       >
-        <Link
-          to="/dashboard/contact-interaction-log/:contactId"
-          className="sidebar-link"
-        >
-          <FaPhone className="icon" /> Contact Interaction Log
+        <Link to="/dashboard/display-products" className="sidebar-link">
+          <FaAccusoft className="icon" />
+          Display Products
         </Link>
       </div>
       <div
         className={`sidebar-item ${activeLink === 4 ? " active " : ""}`}
+        onClick={() => setActiveLink(4)}
+      >
+        <Link to="/dashboard/products" className="sidebar-link">
+          <FaBoxOpen className="icon" /> Products
+        </Link>
+      </div>
+      <div
+        className={`sidebar-item ${activeLink === 5 ? " active " : ""}`}
         onClick={() => setActiveLink(5)}
       >
         <Link to="/logout" className="sidebar-link">

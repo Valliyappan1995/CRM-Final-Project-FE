@@ -13,8 +13,9 @@ import EditContact from "./components/EditContact";
 import Logout from "./components/Logout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
-import AddInteraction from "./components/AddInteraction";
-import InteractionLog from "./components/InteractionLog";
+import DisplayProducts from "./components/DisplayProducts";
+import EditProduct from "./components/EditProduct";
+import ProductForm from "./components/ProductForm";
 
 export const UserContext = createContext(null);
 
@@ -52,12 +53,16 @@ const router = createBrowserRouter([
         element: <EditContact />,
       },
       {
-        path: "/dashboard/contact-interaction-log/:contactId",
-        element: <InteractionLog />,
+        path: "/dashboard/products",
+        element: <ProductForm />,
       },
       {
-        path: "/dashboard/add-interaction/:contactId",
-        element: <AddInteraction />,
+        path: "/dashboard/display-products",
+        element: <DisplayProducts />,
+      },
+      {
+        path: "/dashboard/edit-product/:id",
+        element: <EditProduct />,
       },
     ],
   },

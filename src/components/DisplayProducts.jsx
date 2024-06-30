@@ -1,34 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "react-data-table-component";
-import { FaPenToSquare, FaRegTrashCan } from "react-icons/fa6";
+import { FaPen, FaRegTrashCan } from "react-icons/fa6";
 import { PuffLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-const customStyles = {
-  headcells: {
-    style: {
-      fontSize: 15 + "px",
-      fontweight: 600,
-    },
-  },
-  cells: {
-    style: {
-      fontSize: 13 + "px",
-      fontweight: 500,
-    },
-  },
-};
-
 const MySwal = withReactContent(Swal);
 
-const DisplayContacts = () => {
-  const [displaycontacts, setDisplayContacts] = useState([]);
+const DisplayProducts = () => {
+  const [displayProducts, setDisplayProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const deleteRecord = (id) => {
+  const deleteProduct = (id) => {
     MySwal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -41,7 +26,7 @@ const DisplayContacts = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts/${id}`,
+            `https://crm-backend-final-5.onrender.com/bestcrm/displayproducts/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -49,7 +34,7 @@ const DisplayContacts = () => {
             }
           )
           .then((res) => {
-            setDisplayContacts(res.data.displayContacts);
+            setDisplayProducts(res.data.displayProducts);
             MySwal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -73,47 +58,44 @@ const DisplayContacts = () => {
       selector: (row) => row.name,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
+      name: "Description",
+      selector: (row) => row.description,
     },
     {
-      name: "Department",
-      selector: (row) => row.department,
+      name: "Price",
+      selector: (row) => row.price,
     },
     {
-      name: "Employees",
-      selector: (row) => row.employees,
-    },
-    {
-      name: "Vendor",
-      selector: (row) => row.vendor,
+      name: "Quantity",
+      selector: (row) => row.quantity,
     },
     {
       name: "Action",
-      selector: (row) => (
+      cell: (row) => (
         <>
-          <Link to={`/dashboard/edit-contact/${row._id}`}>
-            <FaPenToSquare className="table-icon1" />
+          <Link to={`/dashboard/edit-product/${row._id}`}>
+            <FaPen className="table-icon1" />
           </Link>
           <FaRegTrashCan
             className="table-icon2"
-            onClick={() => deleteRecord(row._id)}
+            onClick={() => deleteProduct(row._id)}
           />
         </>
       ),
     },
   ];
+
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts", {
+      .get("https://crm-backend-final-5.onrender.com/bestcrm/products", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          setDisplayContacts(res.data.displaycontacts);
+          setDisplayProducts(res.data.products);
           setLoading(false);
         }
       })
@@ -122,6 +104,7 @@ const DisplayContacts = () => {
         setLoading(false);
       });
   }, []);
+
   return (
     <>
       {loading ? (
@@ -134,17 +117,10 @@ const DisplayContacts = () => {
           />
         </div>
       ) : (
-        <div className="contact-list">
-          <DataTable
-            columns={columns}
-            data={displaycontacts}
-            customStyles={customStyles}
-            pagination
-          />
-          {displaycontacts && displaycontacts.length === 0 ? (
-            <h2>Add New Contact</h2>
-          ) : (
-            <></>
+        <div className="product-list">
+          <DataTable columns={columns} data={displayProducts} pagination />
+          {displayProducts && displayProducts.length === 0 && (
+            <h2>Add New Product</h2>
           )}
         </div>
       )}
@@ -152,4 +128,4 @@ const DisplayContacts = () => {
   );
 };
 
-export default DisplayContacts;
+export default DisplayProducts;
