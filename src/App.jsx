@@ -14,7 +14,7 @@ import Logout from "./components/Logout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 import AddInteraction from "./components/AddInteraction";
-import InteractionLog from "./components/interactionlog";
+import InteractionLog from "./components/InteractionLog";
 
 export const UserContext = createContext(null);
 
