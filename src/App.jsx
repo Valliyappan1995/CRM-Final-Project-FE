@@ -13,12 +13,8 @@ import EditContact from "./components/EditContact";
 import Logout from "./components/Logout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
-import Interactions from "./components/interaction";
-import Leads from "./components/leads";
-import Tasks from "./components/tasks";
-import EditInteraction from "./components/editInteraction";
-import EditLead from "./components/editLead";
-import EditTask from "./components/editTask";
+import AddInteraction from "./components/AddInteraction";
+import InteractionLog from "./components/interactionlog";
 
 export const UserContext = createContext(null);
 
@@ -56,28 +52,12 @@ const router = createBrowserRouter([
         element: <EditContact />,
       },
       {
-        path: "/dashboard/interactions",
-        element: <Interactions />,
+        path: "/dashboard/contact-interaction-log/:contactId",
+        element: <InteractionLog />,
       },
       {
-        path: "/dashboard/leads",
-        element: <Leads />,
-      },
-      {
-        path: "/dashboard/tasks",
-        element: <Tasks />,
-      },
-      {
-        path: "/dashboard/edit-interaction/:id",
-        element: <EditInteraction />,
-      },
-      {
-        path: "/dashboard/edit-lead/:id",
-        element: <EditLead />,
-      },
-      {
-        path: "/dashboard/edit-task/:id",
-        element: <EditTask />,
+        path: "/dashboard/add-interaction/:contactId",
+        element: <AddInteraction />,
       },
     ],
   },
@@ -95,7 +75,7 @@ const App = () => {
   const [user, setUser] = useState();
   useEffect(() => {
     axios
-      .get("https://crm-backend-final-4.onrender.com/bestcrm/verify", {
+      .get("https://crm-backend-final-5.onrender.com/bestcrm/verify", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

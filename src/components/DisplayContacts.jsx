@@ -103,6 +103,9 @@ const DisplayContacts = () => {
           <Link to={`/dashboard/contact-interaction-log/${row._id}`}>
             <button>View Interactions</button>
           </Link>
+          <Link to={`/dashboard/add-interaction/${row._id}`}>
+            <button>Add Interaction</button>
+          </Link>
         </>
       ),
     },
