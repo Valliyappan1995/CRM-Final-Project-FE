@@ -28,6 +28,7 @@ const ProductForm = () => {
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
           },
         }
       )
@@ -38,10 +39,19 @@ const ProductForm = () => {
             autoClose: 5000,
           });
           navigate("/dashboard");
+        } else {
+          toast.error("Failed to add product", {
+            position: "top-right",
+            autoClose: 5000,
+          });
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error adding product:", err);
+        toast.error("Failed to add product", {
+          position: "top-right",
+          autoClose: 5000,
+        });
       });
   };
 
@@ -86,7 +96,9 @@ const ProductForm = () => {
             onChange={handleInput}
           />
         </div>
-        <button className="form-btn">Save</button>
+        <button type="submit" className="form-btn">
+          Save
+        </button>
       </form>
     </div>
   );
