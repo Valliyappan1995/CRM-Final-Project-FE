@@ -24,8 +24,8 @@ const customStyles = {
 
 const MySwal = withReactContent(Swal);
 
-const DisplayOffers = () => {
-  const [displayoffers, setDisplayOffers] = useState([]);
+const DisplayInteractions = () => {
+  const [displayInteractions, setDisplayInteractions] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const deleteRecord = (id) => {
@@ -41,7 +41,7 @@ const DisplayOffers = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://crm-backend-final-5.onrender.com/bestcrm/displayoffers/${id}`,
+            `https://crm-backend-final-5.onrender.com/bestcrm/interactions/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -49,17 +49,17 @@ const DisplayOffers = () => {
             }
           )
           .then((res) => {
-            setDisplayOffers(res.data.displayoffers);
+            setDisplayInteractions(res.data.displayInteractions);
             MySwal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your interaction has been deleted.",
               icon: "success",
             });
           })
           .catch((err) => {
             MySwal.fire({
               title: "Error!",
-              text: "Error Occured!!!",
+              text: "Error Occurred!!!",
               icon: "error",
             });
           });
@@ -69,30 +69,26 @@ const DisplayOffers = () => {
 
   const columns = [
     {
-      name: "Name",
-      selector: (row) => row.name,
+      name: "Contact ID",
+      selector: (row) => row.contactId,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
+      name: "Interaction Type",
+      selector: (row) => row.interactionType,
     },
     {
-      name: "Department",
-      selector: (row) => row.department,
+      name: "Date",
+      selector: (row) => row.date,
     },
     {
-      name: "Employees",
-      selector: (row) => row.employees,
-    },
-    {
-      name: "Vendor",
-      selector: (row) => row.vendor,
+      name: "Notes",
+      selector: (row) => row.notes,
     },
     {
       name: "Action",
       selector: (row) => (
         <>
-          <Link to={`/dashboard/edit-offer/${row._id}`}>
+          <Link to={`/dashboard/edit-interaction/${row._id}`}>
             <FaPenToSquare className="table-icon1" />
           </Link>
           <FaRegTrashCan
@@ -103,17 +99,18 @@ const DisplayOffers = () => {
       ),
     },
   ];
+
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://crm-backend-final-5.onrender.com/bestcrm/displayoffers", {
+      .get("https://crm-backend-final-5.onrender.com/bestcrm/interactions", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          setDisplayOffers(res.data.displayoffers);
+          setDisplayInteractions(res.data.displayInteractions);
           setLoading(false);
         }
       })
@@ -122,6 +119,7 @@ const DisplayOffers = () => {
         setLoading(false);
       });
   }, []);
+
   return (
     <>
       {loading ? (
@@ -134,15 +132,15 @@ const DisplayOffers = () => {
           />
         </div>
       ) : (
-        <div className="offer-list">
+        <div className="interaction-list">
           <DataTable
             columns={columns}
-            data={displayoffers}
+            data={displayInteractions}
             customStyles={customStyles}
             pagination
           />
-          {displayoffers && displayoffers.length === 0 ? (
-            <h2>Add New Offer</h2>
+          {displayInteractions && displayInteractions.length === 0 ? (
+            <h2>Add New Interaction</h2>
           ) : (
             <></>
           )}
@@ -152,4 +150,4 @@ const DisplayOffers = () => {
   );
 };
 
-export default DisplayOffers;
+export default DisplayInteractions;

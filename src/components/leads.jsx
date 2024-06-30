@@ -1,39 +1,34 @@
 import React, { useState } from "react";
+import "../assets/css/form.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  FaAt,
-  FaBlackTie,
-  FaLandmark,
-  FaPersonCircleCheck,
-  FaUserPlus,
-} from "react-icons/fa6";
+import { FaUserTie, FaAt, FaPhone, FaBriefcase } from "react-icons/fa6";
 
-const Offers = () => {
+const Leads = () => {
   const [values, setValues] = useState({
     name: "",
     email: "",
-    department: "",
-    employees: "",
-    vendor: "",
+    phone: "",
+    company: "",
   });
 
   const navigate = useNavigate();
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://crm-backend-final-5.onrender.com/bestcrm/offers", values, {
+      .post("https://crm-backend-final-5.onrender.com/bestcrm/leads", values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          toast.success("Offer Added Successfully", {
+          toast.success("Lead Added Successfully", {
             position: "top-right",
             autoClose: 5000,
           });
@@ -44,12 +39,13 @@ const Offers = () => {
         console.log(err);
       });
   };
+
   return (
     <div className="add-form-container">
       <form className="add-form" onSubmit={handleSubmit}>
-        <h2>Offer Information</h2>
+        <h2>Add Lead</h2>
         <div className="form-group">
-          <FaUserPlus />
+          <FaUserTie />
           <input
             type="text"
             placeholder="Enter name"
@@ -70,34 +66,23 @@ const Offers = () => {
           />
         </div>
         <div className="form-group">
-          <FaLandmark />
+          <FaPhone />
           <input
             type="text"
-            placeholder="Enter the Department"
+            placeholder="Enter Phone Number"
             className="form-control"
-            name="department"
+            name="phone"
             autoComplete="off"
             onChange={handleInput}
           />
         </div>
         <div className="form-group">
-          <FaPersonCircleCheck />
+          <FaBriefcase />
           <input
             type="text"
-            placeholder="Enter Number Of Employees"
+            placeholder="Enter Company Name"
             className="form-control"
-            name="employees"
-            autoComplete="off"
-            onChange={handleInput}
-          />
-        </div>
-        <div className="form-group">
-          <FaBlackTie />
-          <input
-            type="text"
-            placeholder="Enter Vendor Name"
-            className="form-control"
-            name="vendor"
+            name="company"
             autoComplete="off"
             onChange={handleInput}
           />
@@ -108,4 +93,4 @@ const Offers = () => {
   );
 };
 
-export default Offers;
+export default Leads;

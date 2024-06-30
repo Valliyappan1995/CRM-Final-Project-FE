@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from "react";
+import "../assets/css/form.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  FaAt,
-  FaBlackTie,
-  FaLandmark,
-  FaPersonCircleCheck,
-  FaUserPlus,
-} from "react-icons/fa6";
+import { FaPeopleArrows, FaCalendarDays, FaUser } from "react-icons/fa6";
 
-const EditOffer = () => {
+const EditInteraction = () => {
   const [values, setValues] = useState({
-    name: "",
-    email: "",
-    department: "",
-    employees: "",
-    vendor: "",
+    contactId: "",
+    interactionType: "",
+    date: "",
+    notes: "",
   });
 
   const navigate = useNavigate();
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .put(
-        "https://crm-backend-final-5.onrender.com/bestcrm/update-offer/" + id,
+        "https://crm-backend-final-5.onrender.com/bestcrm/update-interaction/" +
+          id,
         values,
         {
           headers: {
@@ -37,7 +33,7 @@ const EditOffer = () => {
       )
       .then((res) => {
         if (res.data.success) {
-          toast.success("Offer Updated Successfully", {
+          toast.success("Interaction Updated Successfully", {
             position: "top-right",
             autoClose: 5000,
           });
@@ -54,7 +50,7 @@ const EditOffer = () => {
   useEffect(() => {
     axios
       .get(
-        "https://crm-backend-final-5.onrender.com/bestcrm/displayoffers/" + id,
+        "https://crm-backend-final-5.onrender.com/bestcrm/interactions/" + id,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -64,11 +60,10 @@ const EditOffer = () => {
       .then((res) => {
         if (res.data.success) {
           setValues({
-            name: res.data.name,
-            email: res.data.email,
-            department: res.data.department,
-            employees: res.data.employees,
-            vendor: res.data.vendor,
+            contactId: res.data.contactId,
+            interactionType: res.data.interactionType,
+            date: res.data.date,
+            notes: res.data.notes,
           });
         }
       })
@@ -76,68 +71,51 @@ const EditOffer = () => {
         console.log(err);
       });
   }, []);
+
   return (
     <div className="add-form-container">
       <form className="add-form" onSubmit={handleSubmit}>
-        <h2>Edit Offer</h2>
+        <h2>Edit Interaction</h2>
         <div className="form-group">
-          <FaUserPlus />
+          <FaUser />
           <input
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter Contact ID"
             className="form-control"
-            name="name"
+            name="contactId"
             onChange={handleInput}
-            value={values.name}
+            value={values.contactId}
           />
         </div>
         <div className="form-group">
-          <FaAt />
+          <FaPeopleArrows />
           <input
-            type="email"
-            placeholder="Enter Email"
+            type="text"
+            placeholder="Enter Interaction Type"
             className="form-control"
-            name="email"
-            autoComplete="off"
+            name="interactionType"
             onChange={handleInput}
-            value={values.email}
+            value={values.interactionType}
           />
         </div>
         <div className="form-group">
-          <FaLandmark />
+          <FaCalendarDays />
           <input
-            type="text"
-            placeholder="Enter the Department"
+            type="date"
             className="form-control"
-            name="department"
-            autoComplete="off"
+            name="date"
             onChange={handleInput}
-            value={values.department}
+            value={values.date}
           />
         </div>
         <div className="form-group">
-          <FaPersonCircleCheck />
-          <input
-            type="text"
-            placeholder="Enter Number Of Employees"
+          <textarea
+            placeholder="Enter Notes"
             className="form-control"
-            name="employees"
-            autoComplete="off"
+            name="notes"
             onChange={handleInput}
-            value={values.employees}
-          />
-        </div>
-        <div className="form-group">
-          <FaBlackTie />
-          <input
-            type="text"
-            placeholder="Enter Vendor Name"
-            className="form-control"
-            name="vendor"
-            autoComplete="off"
-            onChange={handleInput}
-            value={values.vendor}
-          />
+            value={values.notes}
+          ></textarea>
         </div>
         <button className="form-btn">Update</button>
       </form>
@@ -145,4 +123,4 @@ const EditOffer = () => {
   );
 };
 
-export default EditOffer;
+export default EditInteraction;

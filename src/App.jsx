@@ -13,9 +13,12 @@ import EditContact from "./components/EditContact";
 import Logout from "./components/Logout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
-import DisplayOffers from "./components/Offers/DisplayOffers";
-import Offers from "./components/Offers/Offers";
-import EditOffer from "./components/Offers/EditOffer";
+import Interactions from "./components/interaction";
+import Leads from "./components/leads";
+import Tasks from "./components/tasks";
+import EditInteraction from "./components/editInteraction";
+import EditLead from "./components/editLead";
+import EditTask from "./components/editTask";
 
 export const UserContext = createContext(null);
 
@@ -36,8 +39,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <ProtectedRoutes>
-        {" "}
-        <Dashboard />{" "}
+        <Dashboard />
       </ProtectedRoutes>
     ),
     children: [
@@ -54,16 +56,28 @@ const router = createBrowserRouter([
         element: <EditContact />,
       },
       {
-        path: "/dashboard/displayOffers",
-        element: <DisplayOffers />,
+        path: "/dashboard/interactions",
+        element: <Interactions />,
       },
       {
-        path: "/dashboard/offers",
-        element: <Offers />,
+        path: "/dashboard/leads",
+        element: <Leads />,
       },
       {
-        path: "dashboard/edit-offers/:id",
-        element: <EditOffer />,
+        path: "/dashboard/tasks",
+        element: <Tasks />,
+      },
+      {
+        path: "/dashboard/edit-interaction/:id",
+        element: <EditInteraction />,
+      },
+      {
+        path: "/dashboard/edit-lead/:id",
+        element: <EditLead />,
+      },
+      {
+        path: "/dashboard/edit-task/:id",
+        element: <EditTask />,
       },
     ],
   },
@@ -99,7 +113,7 @@ const App = () => {
     <>
       <ToastContainer />
       <UserContext.Provider value={{ user, setUser }}>
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
       </UserContext.Provider>
     </>
   );

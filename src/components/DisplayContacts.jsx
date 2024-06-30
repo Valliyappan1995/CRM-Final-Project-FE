@@ -99,6 +99,10 @@ const DisplayContacts = () => {
             className="table-icon2"
             onClick={() => deleteRecord(row._id)}
           />
+
+          <Link to={`/dashboard/contact-interaction-log/${row._id}`}>
+            <button>View Interactions</button>
+          </Link>
         </>
       ),
     },
