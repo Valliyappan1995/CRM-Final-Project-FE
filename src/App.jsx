@@ -77,27 +77,34 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const [user, setUser] = useState();
+  const [User, setUser] = useState(null);
+
   useEffect(() => {
-    axios
-      .get("https://crm-backend-final-5.onrender.com/bestcrm/verify", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          setUser(res.data.user);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // Fetch token from wherever you store it (localStorage, state, etc.)
+    const token = localStorage.getItem("token"); // Example: Retrieving from localStorage
+
+    if (token) {
+      axios
+        .get("https://crm-backend-final-5.onrender.com/bestcrm/verify", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Correctly interpolate the token here
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            setUser(res.data.user);
+          }
+        })
+        .catch((err) => {
+          console.log("Error verifying token:", err);
+        });
+    }
   }, []);
+
   return (
     <>
       <ToastContainer />
-      <UserContext.Provider value={{ user, setUser }}>
+      <UserContext.Provider value={{ User, setUser }}>
         <RouterProvider router={router} />
       </UserContext.Provider>
     </>
