@@ -27,15 +27,11 @@ const EditContact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(
-        "https://crm-backend-final-5.onrender.com/bestcrm/update-contact/" + id,
-        values,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      .put("http://localhost:3000/bestcrm/update-contact/" + id, values, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         if (res.data.success) {
           toast.success("Contact Updated Successfully", {
@@ -54,15 +50,11 @@ const EditContact = () => {
 
   useEffect(() => {
     axios
-      .get(
-        "https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts/" +
-          id,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      .get("http://localhost:3000/bestcrm/displaycontacts/" + id, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         if (res.data.success) {
           setValues({

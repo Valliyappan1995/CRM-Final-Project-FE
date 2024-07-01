@@ -40,16 +40,13 @@ const DisplayContacts = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(
-            `https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts/${id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          )
+          .delete(`http://localhost:3000/bestcrm/displaycontacts/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
           .then((res) => {
-            setDisplayContacts(res.data.displayContacts);
+            setDisplayContacts(res.data.displaycontacts);
             MySwal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -106,7 +103,7 @@ const DisplayContacts = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://crm-backend-final-5.onrender.com/bestcrm/displaycontacts", {
+      .get("http://localhost:3000/bestcrm/displaycontacts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

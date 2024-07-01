@@ -45,24 +45,24 @@ const router = createBrowserRouter([
         element: <DisplayContacts />,
       },
       {
-        path: "/dashboard/contacts",
+        path: "contacts",
         element: <Contacts />,
       },
       {
-        path: "/dashboard/edit-contact/:id",
+        path: "edit-contact/:id",
         element: <EditContact />,
       },
       {
-        path: "/dashboard/products",
-        element: <ProductForm />,
-      },
-      {
-        path: "/dashboard/display-products",
+        path: "displayproducts",
         element: <DisplayProducts />,
       },
       {
-        path: "/dashboard/edit-product/:id",
+        path: "edit-product/:id",
         element: <EditProduct />,
+      },
+      {
+        path: "products",
+        element: <ProductForm />,
       },
     ],
   },
@@ -85,7 +85,7 @@ const App = () => {
 
     if (token) {
       axios
-        .get("https://crm-backend-final-5.onrender.com/bestcrm/verify", {
+        .get("http://localhost:3000/bestcrm/verify", {
           headers: {
             Authorization: `Bearer ${token}`, // Correctly interpolate the token here
           },
@@ -93,6 +93,8 @@ const App = () => {
         .then((res) => {
           if (res.data.success) {
             setUser(res.data.user);
+          } else {
+            console.error("Token verification failed:", res.data.message);
           }
         })
         .catch((err) => {

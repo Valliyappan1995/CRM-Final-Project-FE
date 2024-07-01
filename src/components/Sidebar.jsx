@@ -50,7 +50,7 @@ export const Sidebar = () => {
         className={`sidebar-item ${activeLink === 3 ? " active " : ""}`}
         onClick={() => setActiveLink(3)}
       >
-        <Link to="/dashboard/display-products" className="sidebar-link">
+        <Link to="/dashboard/displayproducts" className="sidebar-link">
           <FaAccusoft className="icon" />
           Display Products
         </Link>
@@ -60,7 +60,7 @@ export const Sidebar = () => {
         onClick={() => setActiveLink(4)}
       >
         <Link to="/dashboard/products" className="sidebar-link">
-          <FaBoxOpen className="icon" /> Products
+          <FaBoxOpen className="icon" /> Product Form
         </Link>
       </div>
       <div

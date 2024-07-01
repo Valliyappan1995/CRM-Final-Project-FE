@@ -28,7 +28,7 @@ const Contacts = () => {
     e.preventDefault();
     axios
       .post(
-        "https://crm-backend-final-5.onrender.com/bestcrm/contacts",
+        "http://localhost:3000/bestcrm/contacts",
         values,
         {
           headers: {

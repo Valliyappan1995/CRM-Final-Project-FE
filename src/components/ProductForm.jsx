@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import "../assets/css/form.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FaProductHunt, FaDollarSign } from "react-icons/fa";
+import { FaTag, FaList, FaDollarSign, FaBox } from "react-icons/fa6";
+import "../assets/css/form.css";
 
 const ProductForm = () => {
   const [values, setValues] = useState({
     name: "",
-    description: "",
+    category: "",
     price: "",
-    quantity: "",
+    stock: "",
   });
 
   const navigate = useNavigate();
@@ -22,33 +22,23 @@ const ProductForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "https://crm-backend-final-5.onrender.com/bestcrm/products",
-        values,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("http://localhost:3000/bestcrm/products", values, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         if (res.data.success) {
           toast.success("Product Added Successfully", {
             position: "top-right",
             autoClose: 5000,
           });
-          navigate("/dashboard");
-        } else {
-          toast.error("Failed to add product", {
-            position: "top-right",
-            autoClose: 5000,
-          });
+          navigate("/dashboard/displayproducts");
         }
       })
       .catch((err) => {
-        console.log("Error adding product:", err);
-        toast.error("Failed to add product", {
+        console.log(err);
+        toast.error("Error Adding Product", {
           position: "top-right",
           autoClose: 5000,
         });
@@ -56,49 +46,54 @@ const ProductForm = () => {
   };
 
   return (
-    <div className="add-form-container">
-      <form className="add-form" onSubmit={handleSubmit}>
-        <h2>Add New Product</h2>
+    <div className="form-container">
+      <form className="form" onSubmit={handleSubmit}>
+        <h2>Add Product</h2>
         <div className="form-group">
-          <FaProductHunt />
+          <FaTag />
           <input
             type="text"
             placeholder="Enter Product Name"
             className="form-control"
             name="name"
             onChange={handleInput}
+            value={values.name}
           />
         </div>
         <div className="form-group">
-          <textarea
-            placeholder="Enter Product Description"
+          <FaList />
+          <input
+            type="text"
+            placeholder="Enter Category"
             className="form-control"
-            name="description"
+            name="category"
             onChange={handleInput}
+            value={values.category}
           />
         </div>
         <div className="form-group">
           <FaDollarSign />
           <input
-            type="text"
+            type="number"
             placeholder="Enter Price"
             className="form-control"
             name="price"
             onChange={handleInput}
+            value={values.price}
           />
         </div>
         <div className="form-group">
+          <FaBox />
           <input
-            type="text"
-            placeholder="Enter Quantity Available"
+            type="number"
+            placeholder="Enter Stock"
             className="form-control"
-            name="quantity"
+            name="stock"
             onChange={handleInput}
+            value={values.stock}
           />
         </div>
-        <button type="submit" className="form-btn">
-          Save
-        </button>
+        <button className="form-btn">Add Product</button>
       </form>
     </div>
   );
