@@ -1,37 +1,45 @@
 import React, { useEffect, useState } from "react";
-import "../assets/css/editproduct.css";
+import "../assets/css/form.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FaBox, FaDollarSign, FaWarehouse, FaTags } from "react-icons/fa6";
+import {
+  FaAt,
+  FaBuilding,
+  FaHandshake,
+  FaUserEdit,
+  FaUserTie,
+} from "react-icons/fa";
 
-const EditProduct = () => {
+const EditLeads = () => {
   const [values, setValues] = useState({
     name: "",
-    category: "",
-    price: "",
-    stock: "",
+    email: "",
+    company: "",
+    status: "",
+    assignedTo: "",
   });
 
   const navigate = useNavigate();
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:3000/bestcrm/update-products/" + id, values, {
+      .put("http://localhost:3000/bestcrm/update-lead/" + id, values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          toast.success("Product Updated Successfully", {
+          toast.success("Lead Updated Successfully", {
             position: "top-right",
             autoClose: 5000,
           });
-          navigate("/dashboard/displayproducts");
+          navigate("/dashboard/displayleads");
         }
       })
       .catch((err) => {
@@ -43,7 +51,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/bestcrm/displayproducts/" + id, {
+      .get("http://localhost:3000/bestcrm/displayleads/" + id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -52,25 +60,27 @@ const EditProduct = () => {
         if (res.data.success) {
           setValues({
             name: res.data.name,
-            category: res.data.category,
-            price: res.data.price,
-            stock: res.data.stock,
+            email: res.data.email,
+            company: res.data.company,
+            status: res.data.status,
+            assignedTo: res.data.assignedTo,
           });
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
+
   return (
-    <div className="edit-form-container">
-      <form className="edit-form" onSubmit={handleSubmit}>
-        <h2>Edit Product</h2>
+    <div className="add-form-container">
+      <form className="add-form" onSubmit={handleSubmit}>
+        <h2>Edit Lead</h2>
         <div className="form-group">
-          <FaBox />
+          <FaUserEdit />
           <input
             type="text"
-            placeholder="Enter Product Name"
+            placeholder="Enter name"
             className="form-control"
             name="name"
             onChange={handleInput}
@@ -78,39 +88,51 @@ const EditProduct = () => {
           />
         </div>
         <div className="form-group">
-          <FaTags />
+          <FaAt />
+          <input
+            type="email"
+            placeholder="Enter Email"
+            className="form-control"
+            name="email"
+            autoComplete="off"
+            onChange={handleInput}
+            value={values.email}
+          />
+        </div>
+        <div className="form-group">
+          <FaBuilding />
           <input
             type="text"
-            placeholder="Enter Category"
+            placeholder="Enter the Company"
             className="form-control"
-            name="category"
+            name="company"
             autoComplete="off"
             onChange={handleInput}
-            value={values.category}
+            value={values.company}
           />
         </div>
         <div className="form-group">
-          <FaDollarSign />
+          <FaHandshake />
           <input
-            type="number"
-            placeholder="Enter Price"
+            type="text"
+            placeholder="Enter Status"
             className="form-control"
-            name="price"
+            name="status"
             autoComplete="off"
             onChange={handleInput}
-            value={values.price}
+            value={values.status}
           />
         </div>
         <div className="form-group">
-          <FaWarehouse />
+          <FaUserTie />
           <input
-            type="number"
-            placeholder="Enter Stock Quantity"
+            type="text"
+            placeholder="Enter Assigned To"
             className="form-control"
-            name="stock"
+            name="assignedTo"
             autoComplete="off"
             onChange={handleInput}
-            value={values.stock}
+            value={values.assignedTo}
           />
         </div>
         <button className="form-btn">Update</button>
@@ -119,4 +141,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default EditLeads;

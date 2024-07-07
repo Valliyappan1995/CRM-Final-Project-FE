@@ -1,20 +1,26 @@
 import React, { useState } from "react";
+import "../assets/css/form.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FaTag, FaList, FaDollarSign, FaBox } from "react-icons/fa6";
-import "../assets/css/form.css";
+import {
+  FaAt,
+  FaBuilding,
+  FaHandshake,
+  FaUserEdit,
+  FaUserTie,
+} from "react-icons/fa";
 
-const ProductForm = () => {
+const Leads = () => {
   const [values, setValues] = useState({
     name: "",
-    category: "",
-    price: "",
-    stock: "",
+    email: "",
+    company: "",
+    status: "",
+    assignedTo: "",
   });
 
   const navigate = useNavigate();
-
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
@@ -22,81 +28,87 @@ const ProductForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/bestcrm/products", values, {
+      .post("http://localhost:3000/bestcrm/leads", values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          toast.success("Product Added Successfully", {
+          toast.success("Lead Added Successfully", {
             position: "top-right",
             autoClose: 5000,
           });
-          navigate("/dashboard/displayproducts");
+          navigate("/dashboard/displayleads");
         }
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error Adding Product", {
-          position: "top-right",
-          autoClose: 5000,
-        });
       });
   };
 
   return (
-    <div className="form-container">
-      <form className="form" onSubmit={handleSubmit}>
-        <h2>Add Product</h2>
+    <div className="add-form-container">
+      <form className="add-form" onSubmit={handleSubmit}>
+        <h2>Lead Information</h2>
         <div className="form-group">
-          <FaTag />
+          <FaUserEdit />
           <input
             type="text"
-            placeholder="Enter Product Name"
+            placeholder="Enter name"
             className="form-control"
             name="name"
             onChange={handleInput}
-            value={values.name}
           />
         </div>
         <div className="form-group">
-          <FaList />
+          <FaAt />
+          <input
+            type="email"
+            placeholder="Enter Email"
+            className="form-control"
+            name="email"
+            autoComplete="off"
+            onChange={handleInput}
+          />
+        </div>
+        <div className="form-group">
+          <FaBuilding />
           <input
             type="text"
-            placeholder="Enter Category"
+            placeholder="Enter the Company"
             className="form-control"
-            name="category"
+            name="company"
+            autoComplete="off"
             onChange={handleInput}
-            value={values.category}
           />
         </div>
         <div className="form-group">
-          <FaDollarSign />
+          <FaHandshake />
           <input
-            type="number"
-            placeholder="Enter Price"
+            type="text"
+            placeholder="Enter Status"
             className="form-control"
-            name="price"
+            name="status"
+            autoComplete="off"
             onChange={handleInput}
-            value={values.price}
           />
         </div>
         <div className="form-group">
-          <FaBox />
+          <FaUserTie />
           <input
-            type="number"
-            placeholder="Enter Stock"
+            type="text"
+            placeholder="Enter Assigned To"
             className="form-control"
-            name="stock"
+            name="assignedTo"
+            autoComplete="off"
             onChange={handleInput}
-            value={values.stock}
           />
         </div>
-        <button className="form-btn">Add Product</button>
+        <button className="form-btn">Save</button>
       </form>
     </div>
   );
 };
 
-export default ProductForm;
+export default Leads;

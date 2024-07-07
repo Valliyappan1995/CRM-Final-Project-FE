@@ -13,9 +13,12 @@ import EditContact from "./components/EditContact";
 import Logout from "./components/Logout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
-import DisplayProducts from "./components/DisplayProducts";
-import EditProduct from "./components/EditProduct";
-import ProductForm from "./components/ProductForm";
+import DisplayLeads from "./components/DisplayLeads";
+import EditLead from "./components/EditLeads";
+import Leads from "./components/Leads";
+import DisplayTasks from "./components/DisplayTasks";
+import EditTask from "./components/EditTask";
+import Tasks from "./components/Tasks";
 
 export const UserContext = createContext(null);
 
@@ -53,16 +56,28 @@ const router = createBrowserRouter([
         element: <EditContact />,
       },
       {
-        path: "displayproducts",
-        element: <DisplayProducts />,
+        path: "displayLeads",
+        element: <DisplayLeads />,
       },
       {
-        path: "edit-product/:id",
-        element: <EditProduct />,
+        path: "edit-lead/:id",
+        element: <EditLead />,
       },
       {
-        path: "products",
-        element: <ProductForm />,
+        path: "leads",
+        element: <Leads />,
+      },
+      {
+        path: "displaytasks",
+        element: <DisplayTasks />,
+      },
+      {
+        path: "edit-task/:id",
+        element: <EditTask />,
+      },
+      {
+        path: "tasks",
+        element: <Tasks />,
       },
     ],
   },
@@ -87,7 +102,7 @@ const App = () => {
       axios
         .get("http://localhost:3000/bestcrm/verify", {
           headers: {
-            Authorization: `Bearer ${token}`, // Correctly interpolate the token here
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {

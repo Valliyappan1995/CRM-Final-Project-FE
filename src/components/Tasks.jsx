@@ -3,102 +3,96 @@ import "../assets/css/form.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  FaAt,
-  FaBlackTie,
-  FaLandmark,
-  FaPersonCircleCheck,
-  FaUserPlus,
-} from "react-icons/fa6";
+import { FaEdit, FaCalendarAlt, FaUser, FaFlag, FaTasks } from "react-icons/fa";
 
-const Contacts = () => {
+const Tasks = () => {
   const [values, setValues] = useState({
-    name: "",
-    email: "",
-    department: "",
-    employees: "",
-    vendor: "",
+    taskName: "",
+    description: "",
+    priority: "",
+    dueDate: "",
+    assignedTo: "",
   });
 
   const navigate = useNavigate();
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/bestcrm/contacts", values, {
+      .post("http://localhost:3000/bestcrm/tasks", values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          toast.success("Contact Added Successfully", {
+          toast.success("Task Added Successfully", {
             position: "top-right",
             autoClose: 5000,
           });
-          navigate("/dashboard");
+          navigate("/dashboard/displaytasks");
         }
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   return (
     <div className="add-form-container">
       <form className="add-form" onSubmit={handleSubmit}>
-        <h2>Contact Information</h2>
+        <h2>Task Information</h2>
         <div className="form-group">
-          <FaUserPlus />
+          <FaTasks />
           <input
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter Task Name"
             className="form-control"
-            name="name"
+            name="taskName"
             onChange={handleInput}
           />
         </div>
         <div className="form-group">
-          <FaAt />
+          <FaEdit />
           <input
-            type="email"
-            placeholder="Enter Email"
+            type="text"
+            placeholder="Enter Description"
             className="form-control"
-            name="email"
+            name="description"
             autoComplete="off"
             onChange={handleInput}
           />
         </div>
         <div className="form-group">
-          <FaLandmark />
+          <FaFlag />
           <input
             type="text"
-            placeholder="Enter the Department"
+            placeholder="Enter Priority"
             className="form-control"
-            name="department"
+            name="priority"
             autoComplete="off"
             onChange={handleInput}
           />
         </div>
         <div className="form-group">
-          <FaPersonCircleCheck />
+          <FaCalendarAlt />
           <input
-            type="text"
-            placeholder="Enter Number Of Employees"
+            type="date"
             className="form-control"
-            name="employees"
-            autoComplete="off"
+            name="dueDate"
             onChange={handleInput}
           />
         </div>
         <div className="form-group">
-          <FaBlackTie />
+          <FaUser />
           <input
             type="text"
-            placeholder="Enter Vendor Name"
+            placeholder="Enter Assigned To"
             className="form-control"
-            name="vendor"
+            name="assignedTo"
             autoComplete="off"
             onChange={handleInput}
           />
@@ -109,4 +103,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Tasks;

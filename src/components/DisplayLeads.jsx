@@ -11,21 +11,21 @@ const customStyles = {
   headcells: {
     style: {
       fontSize: 15 + "px",
-      fontweight: 600,
+      fontWeight: 600,
     },
   },
   cells: {
     style: {
       fontSize: 13 + "px",
-      fontweight: 500,
+      fontWeight: 500,
     },
   },
 };
 
 const MySwal = withReactContent(Swal);
 
-const DisplayProducts = () => {
-  const [products, setProducts] = useState([]);
+const DisplayLeads = () => {
+  const [displayLeads, setDisplayLeads] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const deleteRecord = (id) => {
@@ -40,23 +40,23 @@ const DisplayProducts = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/bestcrm/displayproducts/${id}`, {
+          .delete(`http://localhost:3000/bestcrm/displayleads/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .then((res) => {
-            setProducts(res.data.products);
+            setDisplayLeads(res.data.displayLeads);
             MySwal.fire({
               title: "Deleted!",
-              text: "Your product has been deleted.",
+              text: "Your file has been deleted.",
               icon: "success",
             });
           })
           .catch((err) => {
             MySwal.fire({
               title: "Error!",
-              text: "Error Occurred!!!",
+              text: "Error Occured!!!",
               icon: "error",
             });
           });
@@ -66,26 +66,30 @@ const DisplayProducts = () => {
 
   const columns = [
     {
-      name: "Product Name",
+      name: "Name",
       selector: (row) => row.name,
     },
     {
-      name: "Category",
-      selector: (row) => row.category,
+      name: "Email",
+      selector: (row) => row.email,
     },
     {
-      name: "Price",
-      selector: (row) => row.price,
+      name: "Company",
+      selector: (row) => row.company,
     },
     {
-      name: "Stock",
-      selector: (row) => row.stock,
+      name: "Status",
+      selector: (row) => row.status,
+    },
+    {
+      name: "Assigned To",
+      selector: (row) => row.assignedTo,
     },
     {
       name: "Action",
       selector: (row) => (
         <>
-          <Link to={`/dashboard/edit-product/${row._id}`}>
+          <Link to={`/dashboard/edit-lead/${row._id}`}>
             <FaPenToSquare className="table-icon1" />
           </Link>
           <FaRegTrashCan
@@ -100,14 +104,14 @@ const DisplayProducts = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:3000/bestcrm/displayproducts", {
+      .get("http://localhost:3000/bestcrm/displayleads", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          setProducts(res.data.products);
+          setDisplayLeads(res.data.displayLeads);
           setLoading(false);
         }
       })
@@ -129,15 +133,15 @@ const DisplayProducts = () => {
           />
         </div>
       ) : (
-        <div className="product-list">
+        <div className="lead-list">
           <DataTable
             columns={columns}
-            data={products}
+            data={displayLeads}
             customStyles={customStyles}
             pagination
           />
-          {products && products.length === 0 ? (
-            <h2>Add New Product</h2>
+          {displayLeads && displayLeads.length === 0 ? (
+            <h2>Add New Lead</h2>
           ) : (
             <></>
           )}
@@ -147,4 +151,4 @@ const DisplayProducts = () => {
   );
 };
 
-export default DisplayProducts;
+export default DisplayLeads;
