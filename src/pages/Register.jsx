@@ -24,7 +24,7 @@ const Register = () => {
     if (errs.name === "" && errs.email === "" && errs.password === "") {
       axios
         .post(
-          "https://crm-backend-final-7.onrender.combestcrm/register",
+          "https://crm-backend-final-7.onrender.com/bestcrm/register",
           values
         )
         .then((res) => {
