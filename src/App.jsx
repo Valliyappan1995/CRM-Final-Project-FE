@@ -107,7 +107,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const [User, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Fetch token from wherever you store it (localStorage, state, etc.)
@@ -136,7 +136,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <UserContext.Provider value={{ User, setUser }}>
+      <UserContext.Provider value={{ user, setUser }}>
         <RouterProvider router={router} />
       </UserContext.Provider>
     </>

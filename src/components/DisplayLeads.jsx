@@ -40,11 +40,14 @@ const DisplayLeads = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/bestcrm/displayleads/${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          .delete(
+            `https://crm-backend-final-6.onrender.com/bestcrm/displayleads/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             setDisplayLeads(res.data.displayLeads);
             MySwal.fire({
@@ -104,7 +107,7 @@ const DisplayLeads = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:3000/bestcrm/displayleads", {
+      .get("https://crm-backend-final-6.onrender.com/bestcrm/displayleads", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

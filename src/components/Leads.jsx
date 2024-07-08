@@ -28,7 +28,7 @@ const Leads = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/bestcrm/leads", values, {
+      .post("https://crm-backend-final-6.onrender.com/bestcrm/leads", values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

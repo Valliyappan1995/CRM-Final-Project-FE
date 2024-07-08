@@ -22,7 +22,7 @@ const EditTask = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:3000/bestcrm/update-task/" + id, values, {
+      .put("https://crm-backend-final-6.onrender.com/bestcrm/update-task/" + id, values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -45,7 +45,7 @@ const EditTask = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/bestcrm/displaytasks/" + id, {
+      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaytasks/" + id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

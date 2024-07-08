@@ -28,11 +28,15 @@ const EditLeads = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:3000/bestcrm/update-lead/" + id, values, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        "https://crm-backend-final-6.onrender.com/bestcrm/update-lead/" + id,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           toast.success("Lead Updated Successfully", {
@@ -51,11 +55,14 @@ const EditLeads = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/bestcrm/displayleads/" + id, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .get(
+        "https://crm-backend-final-6.onrender.com/bestcrm/displayleads/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setValues({

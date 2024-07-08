@@ -18,7 +18,7 @@ const Deals = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/bestcrm/displaycontacts", {
+      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaycontacts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -40,7 +40,7 @@ const Deals = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/bestcrm/deals", values, {
+      .post("https://crm-backend-final-6.onrender.com/bestcrm/deals", values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -40,11 +40,14 @@ const DisplayDeals = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/bestcrm/displaydeals/${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          .delete(
+            `https://crm-backend-final-6.onrender.com/bestcrm/displaydeals/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             setDisplayDeals(res.data.deals);
             MySwal.fire({
@@ -100,7 +103,7 @@ const DisplayDeals = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:3000/bestcrm/displaydeals", {
+      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaydeals", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

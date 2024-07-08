@@ -40,11 +40,14 @@ const DisplayContacts = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/bestcrm/displaycontacts/${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          .delete(
+            `https://crm-backend-final-6.onrender.com/bestcrm/displaycontacts/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             setDisplayContacts(res.data.displaycontacts);
             MySwal.fire({
@@ -104,7 +107,7 @@ const DisplayContacts = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:3000/bestcrm/displaycontacts", {
+      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaycontacts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

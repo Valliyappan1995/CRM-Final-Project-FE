@@ -40,11 +40,14 @@ const DisplayTasks = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/bestcrm/displaytasks/${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          .delete(
+            `https://crm-backend-final-6.onrender.com/bestcrm/displaytasks/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             setDisplayTasks((prevTasks) =>
               prevTasks.filter((task) => task._id !== id)
@@ -112,7 +115,7 @@ const DisplayTasks = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:3000/bestcrm/displaytasks", {
+      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaytasks", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

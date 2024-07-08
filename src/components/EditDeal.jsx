@@ -24,11 +24,15 @@ const EditDeal = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:3000/bestcrm/update-deal/${id}`, values, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        `https://crm-backend-final-6.onrender.com/bestcrm/update-deal/${id}`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           toast.success("Deal Updated Successfully", {
@@ -45,11 +49,14 @@ const EditDeal = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/bestcrm/displaydeals/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .get(
+        `https://crm-backend-final-6.onrender.com/bestcrm/displaydeals/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setValues({
@@ -65,7 +72,7 @@ const EditDeal = () => {
       });
 
     axios
-      .get("http://localhost:3000/bestcrm/displaycontacts", {
+      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaycontacts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
