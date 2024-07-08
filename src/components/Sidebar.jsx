@@ -22,7 +22,7 @@ export const Sidebar = () => {
         className={`sidebar-item ${activeLink === 0 ? " active " : ""}`}
         onClick={() => setActiveLink(0)}
       >
-        <Link className="sidebar-link">
+        <Link to="/"className="sidebar-link">
           <FaUser className="icon" />
           Profile
         </Link>
@@ -78,10 +78,26 @@ export const Sidebar = () => {
           <FaBoxOpen className="icon" /> Tasks
         </Link>
       </div>
-
       <div
         className={`sidebar-item ${activeLink === 7 ? " active " : ""}`}
         onClick={() => setActiveLink(7)}
+      >
+        <Link to="/dashboard/displaydeals" className="sidebar-link">
+          <FaAccusoft className="icon" />
+          Display Deals
+        </Link>
+      </div>
+      <div
+        className={`sidebar-item ${activeLink === 8 ? " active " : ""}`}
+        onClick={() => setActiveLink(8)}
+      >
+        <Link to="/dashboard/deals" className="sidebar-link">
+          <FaBoxOpen className="icon" /> Deals
+        </Link>
+      </div>
+      <div
+        className={`sidebar-item ${activeLink === 9 ? " active " : ""}`}
+        onClick={() => setActiveLink(9)}
       >
         <Link to="/logout" className="sidebar-link">
           <FaPowerOff className="icon" /> Exit

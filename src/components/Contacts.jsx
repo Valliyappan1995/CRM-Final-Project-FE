@@ -16,8 +16,8 @@ const Contacts = () => {
     name: "",
     email: "",
     department: "",
-    employees: "",
-    vendor: "",
+    phoneNumber: "",
+    address: "",
   });
 
   const navigate = useNavigate();
@@ -85,9 +85,9 @@ const Contacts = () => {
           <FaPersonCircleCheck />
           <input
             type="text"
-            placeholder="Enter Number Of Employees"
+            placeholder="Enter Phone Number"
             className="form-control"
-            name="employees"
+            name="phoneNumber"
             autoComplete="off"
             onChange={handleInput}
           />
@@ -96,9 +96,9 @@ const Contacts = () => {
           <FaBlackTie />
           <input
             type="text"
-            placeholder="Enter Vendor Name"
+            placeholder="Enter Address"
             className="form-control"
-            name="vendor"
+            name="address"
             autoComplete="off"
             onChange={handleInput}
           />

@@ -1,44 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/form.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  FaAt,
-  FaBlackTie,
-  FaLandmark,
-  FaPhoneAlt,
-  FaUserPlus,
-} from "react-icons/fa";
+import { FaMoneyBill, FaHandshake, FaTag, FaUserTie } from "react-icons/fa6";
 
-const EditContact = () => {
+const EditDeal = () => {
   const [values, setValues] = useState({
-    name: "",
-    email: "",
-    department: "",
-    phoneNumber: "",
-    address: "",
+    dealName: "",
+    value: "",
+    stage: "",
+    contact: "",
   });
+  const [contacts, setContacts] = useState([]);
 
   const navigate = useNavigate();
+  const { id } = useParams();
+
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:3000/bestcrm/update-contact/" + id, values, {
+      .put(`http://localhost:3000/bestcrm/update-deal/${id}`, values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          toast.success("Contact Updated Successfully", {
+          toast.success("Deal Updated Successfully", {
             position: "top-right",
             autoClose: 5000,
           });
-          navigate("/dashboard");
+          navigate("/dashboard/displaydeals");
         }
       })
       .catch((err) => {
@@ -46,11 +43,9 @@ const EditContact = () => {
       });
   };
 
-  const { id } = useParams();
-
   useEffect(() => {
     axios
-      .get("http://localhost:3000/bestcrm/displaycontacts/" + id, {
+      .get(`http://localhost:3000/bestcrm/displaydeals/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -58,80 +53,89 @@ const EditContact = () => {
       .then((res) => {
         if (res.data.success) {
           setValues({
-            name: res.data.name,
-            email: res.data.email,
-            department: res.data.department,
-            phoneNumber: res.data.phoneNumber,
-            address: res.data.address,
+            dealName: res.data.dealName,
+            value: res.data.value,
+            stage: res.data.stage,
+            contact: res.data.contact._id,
           });
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+
+    axios
+      .get("http://localhost:3000/bestcrm/displaycontacts", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setContacts(res.data.displaycontacts);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
+
   return (
     <div className="add-form-container">
       <form className="add-form" onSubmit={handleSubmit}>
-        <h2>Edit Contact</h2>
+        <h2>Edit Deal</h2>
         <div className="form-group">
-          <FaUserPlus />
+          <FaTag />
           <input
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter Deal Name"
             className="form-control"
-            name="name"
+            name="dealName"
             onChange={handleInput}
-            value={values.name}
+            value={values.dealName}
           />
         </div>
         <div className="form-group">
-          <FaAt />
+          <FaMoneyBill />
           <input
-            type="email"
-            placeholder="Enter Email"
+            type="text"
+            placeholder="Enter Value"
             className="form-control"
-            name="email"
+            name="value"
             autoComplete="off"
             onChange={handleInput}
-            value={values.email}
+            value={values.value}
           />
         </div>
         <div className="form-group">
-          <FaLandmark />
+          <FaHandshake />
           <input
             type="text"
-            placeholder="Enter the Department"
+            placeholder="Enter Stage"
             className="form-control"
-            name="department"
+            name="stage"
             autoComplete="off"
             onChange={handleInput}
-            value={values.department}
+            value={values.stage}
           />
         </div>
         <div className="form-group">
-          <FaPhoneAlt />
-          <input
-            type="text"
-            placeholder="Enter Phone Number"
+          <FaUserTie />
+          <select
             className="form-control"
-            name="phoneNumber"
-            autoComplete="off"
+            name="contact"
             onChange={handleInput}
-            value={values.phoneNumber}
-          />
-        </div>
-        <div className="form-group">
-          <FaBlackTie />
-          <input
-            type="text"
-            placeholder="Enter Address"
-            className="form-control"
-            name="address"
-            autoComplete="off"
-            onChange={handleInput}
-            value={values.address}
-          />
+            value={values.contact}
+          >
+            <option value="" disabled>
+              Select Associated Contact
+            </option>
+            {contacts.map((contact) => (
+              <option key={contact._id} value={contact._id}>
+                {contact.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button className="form-btn">Update</button>
       </form>
@@ -139,4 +143,4 @@ const EditContact = () => {
   );
 };
 
-export default EditContact;
+export default EditDeal;

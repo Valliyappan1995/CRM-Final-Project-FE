@@ -24,8 +24,8 @@ const customStyles = {
 
 const MySwal = withReactContent(Swal);
 
-const DisplayContacts = () => {
-  const [displaycontacts, setDisplayContacts] = useState([]);
+const DisplayDeals = () => {
+  const [displayDeals, setDisplayDeals] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const deleteRecord = (id) => {
@@ -40,13 +40,13 @@ const DisplayContacts = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/bestcrm/displaycontacts/${id}`, {
+          .delete(`http://localhost:3000/bestcrm/displaydeals/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .then((res) => {
-            setDisplayContacts(res.data.displaycontacts);
+            setDisplayDeals(res.data.deals);
             MySwal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -56,7 +56,7 @@ const DisplayContacts = () => {
           .catch((err) => {
             MySwal.fire({
               title: "Error!",
-              text: "Error Occured!!!",
+              text: "Error Occurred!!!",
               icon: "error",
             });
           });
@@ -66,30 +66,26 @@ const DisplayContacts = () => {
 
   const columns = [
     {
-      name: "Name",
-      selector: (row) => row.name,
+      name: "Deal Name",
+      selector: (row) => row.dealName,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
+      name: "Value",
+      selector: (row) => row.value,
     },
     {
-      name: "Department",
-      selector: (row) => row.department,
+      name: "Stage",
+      selector: (row) => row.stage,
     },
     {
-      name: "Phone Number",
-      selector: (row) => row.phoneNumber,
-    },
-    {
-      name: "Address",
-      selector: (row) => row.address,
+      name: "Contact",
+      selector: (row) => row.contact?.name || "N/A",
     },
     {
       name: "Action",
       selector: (row) => (
         <>
-          <Link to={`/dashboard/edit-contact/${row._id}`}>
+          <Link to={`/dashboard/edit-deal/${row._id}`}>
             <FaPenToSquare className="table-icon1" />
           </Link>
           <FaRegTrashCan
@@ -104,14 +100,14 @@ const DisplayContacts = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:3000/bestcrm/displaycontacts", {
+      .get("http://localhost:3000/bestcrm/displaydeals", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         if (res.data.success) {
-          setDisplayContacts(res.data.displaycontacts);
+          setDisplayDeals(res.data.deals);
           setLoading(false);
         }
       })
@@ -133,15 +129,15 @@ const DisplayContacts = () => {
           />
         </div>
       ) : (
-        <div className="contact-list">
+        <div className="deal-list">
           <DataTable
             columns={columns}
-            data={displaycontacts}
+            data={displayDeals}
             customStyles={customStyles}
             pagination
           />
-          {displaycontacts && displaycontacts.length === 0 ? (
-            <h2>Add New Contact</h2>
+          {displayDeals && displayDeals.length === 0 ? (
+            <h2>Add New Deal</h2>
           ) : (
             <></>
           )}
@@ -151,4 +147,4 @@ const DisplayContacts = () => {
   );
 };
 
-export default DisplayContacts;
+export default DisplayDeals;

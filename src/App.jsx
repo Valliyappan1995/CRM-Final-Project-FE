@@ -19,6 +19,9 @@ import Leads from "./components/Leads";
 import DisplayTasks from "./components/DisplayTasks";
 import EditTask from "./components/EditTask";
 import Tasks from "./components/Tasks";
+import Deals from "./components/Deals";
+import EditDeal from "./components/EditDeal";
+import DisplayDeals from "./components/DisplayDeals";
 
 export const UserContext = createContext(null);
 
@@ -78,6 +81,18 @@ const router = createBrowserRouter([
       {
         path: "tasks",
         element: <Tasks />,
+      },
+      {
+        path: "displaydeals",
+        element: <DisplayDeals />,
+      },
+      {
+        path: "edit-deal/:id",
+        element: <EditDeal />,
+      },
+      {
+        path: "deals",
+        element: <Deals />,
       },
     ],
   },
