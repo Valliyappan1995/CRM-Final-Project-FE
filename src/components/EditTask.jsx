@@ -22,11 +22,15 @@ const EditTask = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("https://crm-backend-final-6.onrender.com/bestcrm/update-task/" + id, values, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        "https://crm-backend-final-7.onrender.com/bestcrm/update-task/" + id,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           toast.success("Task Updated Successfully", {
@@ -45,11 +49,14 @@ const EditTask = () => {
 
   useEffect(() => {
     axios
-      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaytasks/" + id, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .get(
+        "https://crm-backend-final-7.onrender.com/bestcrm/displaytasks/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setValues({

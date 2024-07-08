@@ -22,7 +22,7 @@ const Tasks = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://crm-backend-final-6.onrender.com/bestcrm/tasks", values, {
+      .post("https://crm-backend-final-7.onrender.com/bestcrm/tasks", values, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

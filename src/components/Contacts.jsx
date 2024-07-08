@@ -28,7 +28,7 @@ const Contacts = () => {
     e.preventDefault();
     axios
       .post(
-        "https://crm-backend-final-6.onrender.com/bestcrm/contacts",
+        "https://crm-backend-final-7.onrender.com/bestcrm/contacts",
         values,
         {
           headers: {

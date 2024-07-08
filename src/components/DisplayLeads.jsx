@@ -41,7 +41,7 @@ const DisplayLeads = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://crm-backend-final-6.onrender.com/bestcrm/displayleads/${id}`,
+            `https://crm-backend-final-7.onrender.com/bestcrm/displayleads/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -107,7 +107,7 @@ const DisplayLeads = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://crm-backend-final-6.onrender.com/bestcrm/displayleads", {
+      .get("https://crm-backend-final-7.onrender.com/bestcrm/displayleads", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -41,7 +41,7 @@ const DisplayDeals = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://crm-backend-final-6.onrender.com/bestcrm/displaydeals/${id}`,
+            `https://crm-backend-final-7.onrender.com/bestcrm/displaydeals/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -103,7 +103,7 @@ const DisplayDeals = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaydeals", {
+      .get("https://crm-backend-final-7.onrender.com/bestcrm/displaydeals", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

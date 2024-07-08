@@ -25,7 +25,7 @@ const EditDeal = () => {
     e.preventDefault();
     axios
       .put(
-        `https://crm-backend-final-6.onrender.com/bestcrm/update-deal/${id}`,
+        `https://crm-backend-final-7.onrender.com/bestcrm/update-deal/${id}`,
         values,
         {
           headers: {
@@ -50,7 +50,7 @@ const EditDeal = () => {
   useEffect(() => {
     axios
       .get(
-        `https://crm-backend-final-6.onrender.com/bestcrm/displaydeals/${id}`,
+        `https://crm-backend-final-7.onrender.com/bestcrm/displaydeals/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -72,7 +72,7 @@ const EditDeal = () => {
       });
 
     axios
-      .get("https://crm-backend-final-6.onrender.com/bestcrm/displaycontacts", {
+      .get("https://crm-backend-final-7.onrender.com/bestcrm/displaycontacts", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

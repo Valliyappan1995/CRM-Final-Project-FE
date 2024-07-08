@@ -29,7 +29,7 @@ const EditLeads = () => {
     e.preventDefault();
     axios
       .put(
-        "https://crm-backend-final-6.onrender.com/bestcrm/update-lead/" + id,
+        "https://crm-backend-final-7.onrender.com/bestcrm/update-lead/" + id,
         values,
         {
           headers: {
@@ -56,7 +56,7 @@ const EditLeads = () => {
   useEffect(() => {
     axios
       .get(
-        "https://crm-backend-final-6.onrender.com/bestcrm/displayleads/" + id,
+        "https://crm-backend-final-7.onrender.com/bestcrm/displayleads/" + id,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
